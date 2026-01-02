@@ -3,8 +3,16 @@ const {
   title = "Thinking Lab",
 } = Astro.props;
 
-// 今表示しているページのURLを取得
-const canonical = Astro.url.toString();
+// 現在のURL
+const url = Astro.url.pathname;
+
+// 戻り先を自動判定
+let backLink = null;
+
+// notes 配下なら Notes 一覧へ
+if (url.startsWith("/notes/")) {
+  backLink = "/notes/";
+}
 ---
 
 <!doctype html>
@@ -13,10 +21,17 @@ const canonical = Astro.url.toString();
     <meta charset="utf-8" />
     <title>{title}</title>
 
-    <!-- canonical は自動生成 -->
-    <link rel="canonical" href={canonical} />
+    <!-- canonical 自動生成 -->
+    <link rel="canonical" href={Astro.url.toString()} />
   </head>
+
   <body>
+    {backLink && (
+      <nav style="margin-bottom: 1rem;">
+        <a href={backLink}>← Notesに戻る</a>
+      </nav>
+    )}
+
     <slot />
   </body>
 </html>
