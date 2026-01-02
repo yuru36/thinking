@@ -6,6 +6,7 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
+  site: "https://meganegirl-architecture.dev",
   integrations: [mdx(), sitemap()],
   output: "static",
 
