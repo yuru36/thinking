@@ -5,8 +5,6 @@ const notes = import.meta.glob('./notes/**/*.md', { eager: true });
 
 const entries = Object.entries(notes)
   .map(([path, mod]) => {
-    console.log(mod.frontmatter);
-
 	const rawTitle = mod.frontmatter?.title;
 	const rawDate = mod.frontmatter?.date;
 
