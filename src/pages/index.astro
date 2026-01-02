@@ -12,10 +12,11 @@ const entries = Object.entries(notes)
 ---
 
 <BaseLayout title="Thinking Lab">
-  <h1>Thinking Lab</h1>
+  <h1 class="mb-4">Thinking Lab</h1>
 
-  <h2>Notes</h2>
-  <a href="/about/">about</a>
+  <p class="mb-6"><a href="/about/">about</a></p>
+
+  <h2 class="mb-2">Notes</h2>
   <ul>
     {entries.map(entry => (
       <li>
