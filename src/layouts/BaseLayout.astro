@@ -1,8 +1,10 @@
 ---
 const {
   title = "Thinking Lab",
-  canonical = "https://meganegirl-architecture.dev/",
 } = Astro.props;
+
+// 今表示しているページのURLを取得
+const canonical = Astro.url.toString();
 ---
 
 <!doctype html>
@@ -11,10 +13,9 @@ const {
     <meta charset="utf-8" />
     <title>{title}</title>
 
-    <!-- canonical をここで一括管理 -->
+    <!-- canonical は自動生成 -->
     <link rel="canonical" href={canonical} />
   </head>
-
   <body>
     <slot />
   </body>
