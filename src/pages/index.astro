@@ -10,12 +10,21 @@ const entries = Object.entries(notes)
 	const rawTitle = mod.frontmatter?.title;
 	const rawDate = mod.frontmatter?.date;
 
+	// 日付文字列（あれば）
+	const dateLabel =
+	rawDate instanceof Date
+		? rawDate.toISOString().slice(0, 10)
+		: typeof rawDate === "string"
+		? rawDate.slice(0, 10)
+		: null;
+
+	// 表示用タイトル
 	const title =
-	typeof rawTitle === "string" && rawTitle.includes("T")
-		? rawTitle.slice(0, 10)
-		: rawTitle ??
-		rawDate?.toISOString().slice(0, 10) ??
-		path;
+	rawTitle
+		? dateLabel
+		? `${dateLabel} — ${rawTitle}`
+		: rawTitle
+		: dateLabel ?? path;
 
     return {
       url: path.replace('./', '/').replace('.md', ''),
