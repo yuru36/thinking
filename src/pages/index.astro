@@ -4,17 +4,35 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const notes = import.meta.glob('./notes/**/*.md', { eager: true });
 
 const entries = Object.entries(notes)
-  .map(([path, mod]) => ({
-    url: path.replace('./', '/').replace('.md', ''),
-    title: mod.frontmatter?.title ?? path,
-  }))
+  .map(([path, mod]) => {
+    console.log(mod.frontmatter);
+
+	const rawTitle = mod.frontmatter?.title;
+	const rawDate = mod.frontmatter?.date;
+
+	const title =
+	typeof rawTitle === "string" && rawTitle.includes("T")
+		? rawTitle.slice(0, 10)
+		: rawTitle ??
+		rawDate?.toISOString().slice(0, 10) ??
+		path;
+
+    return {
+      url: path.replace('./', '/').replace('.md', ''),
+      title,
+    };
+  })
   .sort((a, b) => (a.url < b.url ? 1 : -1));
+
 ---
 
 <BaseLayout title="Thinking Lab">
-  <h1 class="mb-4">Thinking Lab</h1>
+  <h1 class="mb-4 text-2xl">Thinking Lab</h1>
+  <h2>とあるエンジニアの思考ノート</h2>
 
-  <p class="mb-6"><a href="/about/">about</a></p>
+  <!--<p class="mb-6"><a href="/about/">about</a></p>-->
+
+
 
   <h2 class="mb-2">Notes</h2>
   <ul>
