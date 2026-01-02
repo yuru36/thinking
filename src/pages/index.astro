@@ -1,5 +1,5 @@
 ---
-const notes = import.meta.glob('./notes/*.md', { eager: true });
+const notes = import.meta.glob('./notes/**/*.md', { eager: true });
 const entries = Object.entries(notes)
   .map(([path, mod]) => {
     return {
