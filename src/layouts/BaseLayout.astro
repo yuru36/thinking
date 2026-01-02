@@ -1,9 +1,21 @@
 ---
 import "../styles/global.css";
 
-const {
-  title = "Thinking Lab",
-} = Astro.props;
+const { frontmatter } = Astro.props;
+const { title, date } = frontmatter ?? {};
+
+// date は string 前提で正規化
+const dateLabel =
+  typeof date === "string"
+    ? date.slice(0, 10)
+    : null;
+
+    console.log(date, dateLabel)
+
+const pageTitle =
+  title && dateLabel
+    ? `${dateLabel} — ${title}`
+    : title ?? "Thinking Lab";
 
 // 現在のURL
 const url = Astro.url.pathname;
@@ -21,7 +33,7 @@ if (url !== "/") {
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
-    <title>{title}</title>
+    <title>{pageTitle}</title>
 
     <!-- canonical 自動生成 -->
     <link rel="canonical" href={Astro.url.toString()} />
@@ -38,6 +50,7 @@ if (url !== "/") {
     )}
 
     <main class="prose prose-neutral">
+    {title && (<h1 class="mb-4 text-2xl">{title}</h1>)}
       <slot />
     </main>
   </div>
