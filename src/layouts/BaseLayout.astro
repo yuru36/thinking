@@ -9,8 +9,8 @@ const url = Astro.url.pathname;
 // 戻り先を自動判定
 let backLink = null;
 
-// notes 配下なら Notes 一覧へ
-if (url.startsWith("/notes/")) {
+// トップ以外ならトップに戻す
+if (url !== "/") {
   backLink = "/";
 }
 ---
