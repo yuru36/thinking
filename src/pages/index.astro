@@ -1,37 +1,26 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
 const notes = import.meta.glob('./notes/**/*.md', { eager: true });
 
 const entries = Object.entries(notes)
-  .map(([path, mod]) => {
-    return {
-      url: path.replace('./', '/').replace('.md', ''),
-      title: mod.frontmatter?.title ?? path,
-    };
-  })
+  .map(([path, mod]) => ({
+    url: path.replace('./', '/').replace('.md', ''),
+    title: mod.frontmatter?.title ?? path,
+  }))
   .sort((a, b) => (a.url < b.url ? 1 : -1));
-
-const canonical = "https://meganegirl-architecture.dev/";
 ---
 
-<html lang="ja">
-  <head>
-    <meta charset="utf-8" />
-    <title>Thinking Lab</title>
+<BaseLayout title="Thinking Lab">
+  <h1>Thinking Lab</h1>
 
-    <!-- canonical はここ -->
-    <link rel="canonical" href={canonical} />
-  </head>
-
-  <body>
-    <h1>Thinking Lab</h1>
-
-    <h2>Notes</h2>
-    <ul>
-      {entries.map(entry => (
-        <li>
-          <a href={entry.url}>{entry.title}</a>
-        </li>
-      ))}
-    </ul>
-  </body>
-</html>
+  <h2>Notes</h2>
+  <a href="about.html">about</a>
+  <ul>
+    {entries.map(entry => (
+      <li>
+        <a href={entry.url}>{entry.title}</a>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>

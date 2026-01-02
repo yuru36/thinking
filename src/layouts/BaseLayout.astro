@@ -1,0 +1,21 @@
+---
+const {
+  title = "Thinking Lab",
+  canonical = "https://meganegirl-architecture.dev/",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title}</title>
+
+    <!-- canonical をここで一括管理 -->
+    <link rel="canonical" href={canonical} />
+  </head>
+
+  <body>
+    <slot />
+  </body>
+</html>
