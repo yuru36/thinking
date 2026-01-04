@@ -1,4 +1,21 @@
 @import "tailwindcss";
 
+h1 {
+    font-size: 1rem; font-weight: bold;
+    margin-bottom: calc(var(--spacing));
+}
+h1.top {
+    font-size: 2rem; font-weight: bold;
+}
+h1.pageTitle {
+    font-size: 1.2rem; font-weight: bold;
+}
+
+p, ul {
+    margin-bottom: calc(var(--spacing) * 4);
+}
 a {text-decoration: underline;}
-li {list-style-type: square;}
+li {
+    list-style-type: square;
+    margin-left: 1rem;
+}
