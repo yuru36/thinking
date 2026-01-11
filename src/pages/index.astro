@@ -2,34 +2,43 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const notes = import.meta.glob('./notes/**/*.md', { eager: true });
+const thinking = import.meta.glob('./thinking/**/*.md', { eager: true });
 
-const entries = Object.entries(notes)
-  .map(([path, mod]) => {
-	const rawTitle = mod.frontmatter?.title;
-	const rawDate = mod.frontmatter?.date;
 
-	// 日付文字列（あれば）
-	const dateLabel =
-	rawDate instanceof Date
-		? rawDate.toISOString().slice(0, 10)
-		: typeof rawDate === "string"
-		? rawDate.slice(0, 10)
-		: null;
+function sort(mdList) {
+  const list = Object.entries(mdList)
+    .map(([path, mod]) => {
+      const rawTitle = mod.frontmatter?.title;
+      const rawDate = mod.frontmatter?.date;
 
-	// 表示用タイトル
-	const title =
-	rawTitle
-		? dateLabel
-		? `${dateLabel} — ${rawTitle}`
-		: rawTitle
-		: dateLabel ?? path;
+      // 日付文字列（あれば）
+      const dateLabel =
+      rawDate instanceof Date
+        ? rawDate.toISOString().slice(0, 10)
+        : typeof rawDate === "string"
+        ? rawDate.slice(0, 10)
+        : null;
 
-    return {
-      url: path.replace('./', '/').replace('.md', ''),
-      title,
-    };
-  })
-  .sort((a, b) => (a.url < b.url ? 1 : -1));
+      // 表示用タイトル
+      const title =
+        rawTitle
+          ? dateLabel
+          ? `${dateLabel} — ${rawTitle}`
+          : rawTitle
+          : dateLabel ?? path;
+
+      return {
+        url: path.replace('./', '/').replace('.md', ''),
+        title,
+      };
+    })
+    .sort((a, b) => (a.url < b.url ? 1 : -1));
+
+  return list;
+}
+
+const entries = sort(notes);
+const thinkingEntries = sort(thinking);
 
 ---
 
@@ -44,6 +53,14 @@ const entries = Object.entries(notes)
   <h2 class="font-bold">Notes</h2>
   <ul>
     {entries.map(entry => (
+      <li>
+        <a href={entry.url}>{entry.title}</a>
+      </li>
+    ))}
+  </ul>
+  <h2 class="font-bold">日記まとめ版</h2>
+  <ul>
+    {thinkingEntries.map(entry => (
       <li>
         <a href={entry.url}>{entry.title}</a>
       </li>
