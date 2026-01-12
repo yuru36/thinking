@@ -44,12 +44,12 @@ const thinkingEntries = sort(thinking);
 
 <BaseLayout title="Thinking Lab">
   <h1 class="mb-2 text-4xl font-bold top">Thinking Lab — 眼鏡っ娘アーキテクチャ思考</h1>
-  <h2 class="mb-4">Megane-Girl Architecture Philosophy</h2>
+  <h2 class="mb-4 top">Megane-Girl Architecture Philosophy</h2>
 
-  <p class="mb-6"><a href="/about/">about</a></p>
+  <p class="mt-4 mb-6"><a href="/about/">about</a></p>
 
 
-  <h2 class="font-bold">Notes</h2>
+  <h2 class="font-bold top">Notes</h2>
   <ul>
     {entries.map(entry => (
       <li>
@@ -57,7 +57,7 @@ const thinkingEntries = sort(thinking);
       </li>
     ))}
   </ul>
-  <h2 class="font-bold">日記まとめ版 (Diary Summary. Included English)</h2>
+  <h2 class="font-bold top">日記まとめ版 (Diary Summary. Included English)</h2>
   <ul>
     {thinkingEntries.map(entry => (
       <li>
