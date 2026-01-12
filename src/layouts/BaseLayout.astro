@@ -10,10 +10,23 @@ const dateLabel =
     ? date.slice(0, 10)
     : null;
 
+
+// 現在のURL
+const url = Astro.url.pathname;
+
+const baseTitle = "Thinking Lab — 眼鏡っ娘アーキテクチャ思考";
+
+const titleMap = {
+  "/": baseTitle,
+  "/about/": `About | ${baseTitle}`,
+};
+
 const pageTitle =
-  title && dateLabel
-    ? `${dateLabel} — ${title}`
-    : title ?? "Thinking Lab";
+  titleMap[url]
+    ?? (title && dateLabel
+      ? `${dateLabel} — ${title}`
+      : title ?? baseTitle);
+
 
 const defaultDescription =
   "思考の途中をそのまま置くラボノート。眼鏡っ娘アーキテクチャを軸に、設計・統治・認知・違和感を言葉にする Thinking Lab。";
@@ -24,9 +37,6 @@ const pageDescription =
     : title
       ? `「${title}」について考えている途中の思考メモ。${defaultDescription}`
       : defaultDescription;
-
-// 現在のURL
-const url = Astro.url.pathname;
 
 // 戻り先を自動判定
 let backLink = null;
