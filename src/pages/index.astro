@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
+const pages = import.meta.glob('./pages/**/*.md', { eager: true });
 const notes = import.meta.glob('./notes/**/*.md', { eager: true });
 const thinking = import.meta.glob('./thinking/**/*.md', { eager: true });
 
@@ -38,6 +39,7 @@ function sort(mdList) {
 }
 
 const entries = sort(notes);
+const pagesEntries = sort(pages);
 const thinkingEntries = sort(thinking);
 
 ---
@@ -48,6 +50,15 @@ const thinkingEntries = sort(thinking);
 
   <p class="mt-4 mb-6"><a href="/about/">about</a></p>
 
+
+  <h2 class="font-bold top">Pages</h2>
+  <ul>
+    {pagesEntries.map(entry => (
+      <li>
+        <a href={entry.url}>{entry.title}</a>
+      </li>
+    ))}
+  </ul>
 
   <h2 class="font-bold top">Notes</h2>
   <ul>
